@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Apru ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
+        :root { --primary: #fb7185; --bg: #020617; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: white; overflow: hidden; touch-action: manipulation; }
+        .font-cursive { font-family: 'Dancing Script', cursive; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .scene { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+        .scene.active { display: flex; }
+        .btn-glow { box-shadow: 0 0 20px rgba(251, 113, 133, 0.3); transition: all 0.3s ease; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" src="song.mp3" loop preload="auto"></audio>
+
+    <div id="start-overlay" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center text-center p-6">
+        <div class="mb-8 text-rose-500 animate-bounce">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.51 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <h2 class="text-xl font-light mb-6 tracking-widest text-pink-200 uppercase">A Story for Apru</h2>
+        <button onclick="startExperience()" class="px-12 py-4 rounded-full glass border-pink-500/50 text-pink-300 font-semibold tracking-widest uppercase text-sm btn-glow">
+            Tap to Open
+        </button>
+    </div>
+
+    <div id="star-field" class="fixed inset-0 z-0"></div>
+
+    <div class="relative z-10 w-full h-screen">
+
+        <div id="scene-0" class="scene active">
+            <div class="icon-box mb-8 opacity-0">
+                <svg class="text-slate-500 mx-auto" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 21a8 8 0 0 1 13.29-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
+            </div>
+            <h1 class="text-3xl font-cursive text-pink-300 mb-4 opacity-0 title-text">The Mystery</h1>
+            <p class="text-blue-100/70 leading-relaxed mb-10 max-w-xs opacity-0 body-text font-light">
+                It started with <strong>Yash Raj</strong>. A secret ID, a single DM, and a block. But a "Summit" is meant to be climbed...
+            </p>
+            <button onclick="nextScene(1)" class="px-8 py-3 rounded-full glass border-white/20 opacity-0 btn-next">What happened next?</button>
+        </div>
+
+        <div id="scene-1" class="scene">
+            <h1 class="text-3xl font-cursive text-blue-300 mb-4">Stephen Summit</h1>
+            <p class="text-blue-100/70 leading-relaxed mb-10 max-w-xs font-light">
+                I reached out as <strong>Stephen Summit</strong>. restless, waiting for your reply. That afternoon, you said hello, and the poetry began.
+            </p>
+            <button onclick="nextScene(2)" class="px-8 py-3 rounded-full glass border-white/20">Test My Memory</button>
+        </div>
+
+        <div id="scene-2" class="scene">
+            <div id="quiz-ui" class="glass p-8 rounded-[2.5rem] w-full max-w-[320px] shadow-2xl">
+                <h2 class="text-lg font-light tracking-wide mb-6">How much do I really know you?</h2>
+                <button id="quiz-btn" onclick="handleQuiz()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-600 font-bold shadow-lg shadow-pink-500/20">Do I know your name?</button>
+            </div>
+        </div>
+
+        <div id="scene-3" class="scene">
+            <div class="relative mb-8 photo-container">
+                <img src="apru.jpeg" class="relative w-64 h-80 object-cover rounded-[2rem] shadow-2xl border border-white/20">
+                <div class="absolute -bottom-4 -right-4 bg-pink-500 p-3 rounded-full shadow-xl">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </div>
+            </div>
+            <div class="space-y-6 px-2">
+                <p class="text-2xl font-cursive text-pink-100 italic leading-snug poem-line">
+                    "Priye ho tum… par ek baat aur,<br>
+                    tum kisi ki hone se pehle, khud की ho..."
+                </p>
+                <p class="text-blue-200/80 font-light text-sm italic">
+                    "Udo jitna udna chahti ho, Aasman bhi chhota lagega,<br>
+                    Aur jab कभी थक जाओ तुम, मेरा साथ वहीं मिलेगा ❤️"
+                </p>
+                <div class="pt-6">
+                    <h3 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-300 via-white to-blue-300">Sweetheart... Soulmate.</h3>
+                    <p class="mt-4 text-white/30 text-[10px] tracking-[0.3em] uppercase">26th March • Satgarha • VSJ College</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        let quizCounter = 0;
+
+        // Initialize Background
+        const starField = document.getElementById('star-field');
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = (Math.random() * 2 + 1) + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            starField.appendChild(star);
+        }
+
+        function startExperience() {
+            gsap.to("#start-overlay", { opacity: 0, duration: 1, onComplete: () => {
+                document.getElementById('start-overlay').style.display = 'none';
+                animateScene0();
+            }});
+        }
+
+        function animateScene0() {
+            gsap.timeline()
+                .to("#scene-0 .icon-box", { opacity: 1, y: -10, duration: 1 })
+                .to("#scene-0 .title-text", { opacity: 1, y: -5, duration: 0.8 }, "-=0.5")
+                .to("#scene-0 .body-text", { opacity: 1, y: -5, duration: 0.8 }, "-=0.5")
+                .to("#scene-0 .btn-next", { opacity: 1, scale: 1, duration: 0.5 }, "-=0.3");
+        }
+
+        function nextScene(index) {
+            const current = document.getElementById(`scene-${currentScene}`);
+            const next = document.getElementById(`scene-${index}`);
+            gsap.to(current, { opacity: 0, y: -20, duration: 0.5, onComplete: () => {
+                current.classList.remove('active');
+                next.classList.add('active');
+                gsap.fromTo(next, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 });
+                currentScene = index;
+            }});
+        }
+
+        function handleQuiz() {
+            const ui = document.getElementById('quiz-ui');
+            quizCounter++;
+
+            gsap.to(ui, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => {
+                if (quizCounter === 1) {
+                    ui.innerHTML = `<p class="text-2xl mb-6 font-cursive">You are <span class="text-pink-400 font-bold underline">Aparna</span></p>
+                                    <button onclick="handleQuiz()" class="w-full py-4 rounded-xl border border-white/20">Correct? Next...</button>`;
+                } else if (quizCounter === 2) {
+                    ui.innerHTML = `<p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Special Day</p>
+                                    <p class="text-3xl font-bold text-yellow-300 mb-6">27th March</p>
+                                    <button onclick="handleQuiz()" class="w-full py-4 rounded-xl bg-indigo-600">Tell me my village?</button>`;
+                } else if (quizCounter === 3) {
+                    ui.innerHTML = `<div class="space-y-4 text-left">
+                                        <div class="p-4 bg-white/5 rounded-xl border border-white/10"><p class="text-[10px] text-gray-500 uppercase">Hometown</p><p class="text-lg text-yellow-200">Satgarha, Madhubani</p></div>
+                                        <div class="p-4 bg-white/5 rounded-xl border border-white/10"><p class="text-[10px] text-gray-500 uppercase">College</p><p class="text-lg text-yellow-200 leading-tight">VSJ College, Rajnagar</p></div>
+                                        <button onclick="showFinal()" class="w-full py-4 bg-rose-500 rounded-full font-bold mt-4 shadow-lg active:scale-95 transition-transform">How did you know, Sumit? ❤️</button>
+                                    </div>`;
+                }
+                gsap.to(ui, { opacity: 1, scale: 1, duration: 0.3 });
+            }});
+        }
+
+        function showFinal() {
+            // 1. Confetti
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#ff69b4', '#ff0000'] });
+            
+            // 2. Play Music
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.6;
+            music.play();
+
+            // 3. Reveal Scene
+            nextScene(3);
+
+            // 4. Final Scene Animation
+            gsap.from(".photo-container", { scale: 0.5, opacity: 0, duration: 1.5, ease: "elastic.out(1, 0.3)", delay: 0.5 });
+            gsap.from(".poem-line", { opacity: 0, y: 20, duration: 1, delay: 1.2 });
+        }
+    </script>
+</body>
+</html>
